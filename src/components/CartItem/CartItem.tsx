@@ -1,6 +1,6 @@
-/* import { useDispatch } from "react-redux";
-import { cartActions } from "./../store/cartSlice"; */
+import { useDispatch } from "react-redux";
 import "./CartItem.css";
+//import { cartActions } from "./../store/cartSlice";
 
 type Props = {
   name: string;
@@ -11,9 +11,9 @@ type Props = {
 };
 
 const CartItem: React.FC<Props> = ({ name, quantity, total, price, id }) => {
-  /*   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  const removeHandler = () => {
+  /* const removeHandler = () => {
     dispatch(cartActions.removeFromCart(id));
   };
 
