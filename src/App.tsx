@@ -1,9 +1,16 @@
-import { Counter } from "./features/counter/Counter";
+import { useSelector } from "react-redux";
+import Auth from "./components/Auth/Auth";
+import Layout from "./components/Layout/Layout";
+import { RootState } from "./store";
 
 function App() {
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
   return (
     <div className="App">
-      <Counter />
+      {!isAuthenticated && <Auth />}
+      {isAuthenticated && <Layout />}
     </div>
   );
 }
