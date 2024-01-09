@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import "./CartItem.css";
-//import { cartActions } from "./../store/cartSlice";
+import { cartActions } from "../../store/cart-slice";
 
 type Props = {
   name: string;
@@ -13,31 +13,28 @@ type Props = {
 const CartItem: React.FC<Props> = ({ name, quantity, total, price, id }) => {
   const dispatch = useDispatch();
 
-  /* const removeHandler = () => {
+  const decrementCartItem = () => {
     dispatch(cartActions.removeFromCart(id));
   };
-
-  const addHandler = () => {
+  const incrementCartItem = () => {
     dispatch(
-      cartActions.addToCart({
-        id,
-        name,
-        price,
-      })
+      cartActions.addToCart({ id, name, price, quantity: 1, subTotalPrice: 0 })
     );
-  }; */
+  };
+
   return (
     <div className="cartItem">
       <h2> {name}</h2>
       <p>${price} /-</p>
-      <p>x{quantity}</p>
-      <article>Total ${total}</article>
-      {/*       <button className="cart-actions" onClick={removeHandler}>
+
+      <button className="cart-actions" onClick={decrementCartItem}>
         -
       </button>
-      <button className="cart-actions" onClick={addHandler}>
+      <p>x{quantity}</p>
+      <button className="cart-actions" onClick={incrementCartItem}>
         +
-      </button> */}
+      </button>
+      <article>Total ${total}</article>
     </div>
   );
 };
