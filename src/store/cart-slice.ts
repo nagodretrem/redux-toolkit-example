@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-interface State  {
+
+
+export interface State  {
     items: Item[];
     totalQuantity: number;
     showCart: boolean;
@@ -26,6 +28,11 @@ const cartSlice = createSlice({
     initialState,
 
     reducers:{
+        replaceData(state, action){
+            state.totalQuantity = action.payload.totalQuantity
+            state.totalPrice = action.payload.totalPrice
+            state.items = action.payload.items
+        },
         addToCart(state: State, action: {payload: Item}){
             const newItem = action.payload
             const existingItem = state.items.find(item => item.id === newItem.id)
@@ -70,6 +77,9 @@ const cartSlice = createSlice({
         }
     }
 })
+
+
+
 
 export const cartActions = cartSlice.actions
 export default cartSlice

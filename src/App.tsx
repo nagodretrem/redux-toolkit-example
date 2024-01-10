@@ -3,9 +3,8 @@ import Auth from "./components/Auth/Auth";
 import Layout from "./components/Layout/Layout";
 import { RootState } from "./store";
 import { useEffect } from "react";
-import axios from "axios";
 import Notification from "./components/Notification/Notification";
-import uiSlice from "./store/ui-slice";
+import { getData, sendCartData } from "./store/cart-actions";
 let isInitial = true;
 function App() {
   const dispatch = useDispatch();
@@ -18,38 +17,11 @@ function App() {
   useEffect(() => {
     if (isInitial) {
       isInitial = false;
+      dispatch(getData() as any);
       return;
     }
-
-    const url: string = process.env.REACT_APP_FIREBASE_URL as string;
-    dispatch(
-      uiSlice.actions.showNotification({
-        message: "Sending cart data",
-        type: "warning",
-        open: true,
-      })
-    );
-    const sendCartData = async () => {
-      const response = await axios.put(`${url}/cart.json`, cart);
-      console.log(response);
-      dispatch(
-        uiSlice.actions.showNotification({
-          message: "Sent cart data successfully",
-          type: "success",
-          open: true,
-        })
-      );
-    };
-    sendCartData().catch((error) => {
-      dispatch(
-        uiSlice.actions.showNotification({
-          message: "Error sending cart data",
-          type: "error",
-          open: true,
-        })
-      );
-    });
-  }, [cart]);
+    dispatch(sendCartData(cart) as any);
+  }, [cart, dispatch]);
 
   return (
     <div className="App">
